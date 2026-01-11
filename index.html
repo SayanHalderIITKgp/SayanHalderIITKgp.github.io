@@ -3,57 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name | Academic Profile</title>
+    <title>Academic Profile | Dr. Avery Scholar</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f4f7f6; }
-        .header { text-align: center; margin-bottom: 40px; }
-        .nav { text-align: center; margin-bottom: 20px; }
-        .nav a { margin: 0 15px; text-decoration: none; color: #0077cc; font-weight: bold; }
-        .section { background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h1 { margin-bottom: 5px; color: #2c3e50; }
-        h2 { border-bottom: 2px solid #0077cc; padding-bottom: 5px; color: #0077cc; }
-        .btn { display: inline-block; background: #0077cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; margin-top: 10px; }
+        /* --- DESIGN TOKENS --- */
+        :root {
+            --bg-color: #F8F9FA;
+            --text-main: #2D3436;
+            --text-muted: #636E72;
+            --primary-blue: #0984E3;
+            --accent-grey: #DFE6E9;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --card-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+       .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section { padding: 5rem 0; }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+        }
+
+       .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+       .nav-links { display: flex; gap: 2rem; list-style: none; }
+       .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+       .nav-links a:hover { color: var(--primary-blue); }
+
+        /* --- HEADER / BIO (2-COLUMN) --- */
+       .header-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            padding-top: 8rem;
+        }
+
+       .bio-text { flex: 1.5; }
+       .bio-text h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+       .bio-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+       .profile-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+       .profile-img {
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800');
+            background-size: cover;
+            background-position: center;
+            border: 8px solid white;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* --- BUTTONS --- */
+       .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.8rem 1.8rem;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(9, 132, 227, 0.2);
+        }
+       .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(9, 132, 227, 0.3);
+            background: #0873c4;
+        }
+
+        /* --- RESEARCH INTERESTS --- */
+       .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+       .interest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+       .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+       .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+        }
+
+       .glass-card i { color: var(--primary-blue); margin-bottom: 1.5rem; }
+       .glass-card h3 { margin-bottom: 1rem; font-size: 1.3rem; }
+       .glass-card p { font-size: 0.95rem; color: var(--text-muted); }
+
+        /* --- PUBLICATION GRID --- */
+       .pub-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+       .pub-card {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+       .pub-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+       .pub-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--primary-blue);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- EDUCATION TIMELINE --- */
+       .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+       .timeline::before {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: var(--accent-grey);
+            top: 0; bottom: 0; left: 20px;
+        }
+
+       .timeline-item {
+            padding-left: 60px;
+            position: relative;
+            margin-bottom: 3rem;
+        }
+       .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 3px solid var(--primary-blue);
+            border-radius: 50%;
+            left: 13px;
+            top: 5px;
+            z-index: 1;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: white;
+            padding: 4rem 0;
+            border-top: 1px solid var(--accent-grey);
+            text-align: center;
+        }
+
+       .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+       .social-links a { color: var(--text-main); transition: var(--transition); }
+       .social-links a:hover { color: var(--primary-blue); transform: scale(1.2); }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 992px) {
+           .header-section { flex-direction: column; text-align: center; gap: 3rem; }
+           .bio-text h1 { font-size: 2.5rem; }
+           .profile-img { width: 260px; height: 260px; }
+        }
+
+        @media (max-width: 600px) {
+           .nav-links { display: none; }
+           .bio-text h1 { font-size: 2rem; }
+            section { padding: 3rem 0; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>Your Full Name</h1>
-        <p>Prospective PhD Candidate | Research Interests: Artificial Intelligence, Robotics</p>
+    <nav>
+        <div class="container nav-content">
+            <div style="font-weight: 600; font-size: 1.2rem;">Scholar.</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#publications">Publications</a></li>
+                <li><a href="#education">Education</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="header-section" id="about">
+            <div class="bio-text">
+                <h1>Bridging Theoretical Physics and Neural Computation</h1>
+                <p>Associate Professor at the University of Zurich. My research explores how topological structures in physical systems can inform the next generation of artificial intelligence.</p>
+                <a href="#contact" class="btn">Get in Touch</a>
+            </div>
+            <div class="profile-wrapper">
+                <div class="profile-img"></div>
+            </div>
+        </header>
+
+        <section id="research">
+            <h2 class="section-title">Research Interests</h2>
+            <div class="interest-grid">
+                <div class="glass-card">
+                    <i data-lucide="atom" size="32"></i>
+                    <h3>Quantum Dynamics</h3>
+                    <p>Investigating non-equilibrium phase transitions in many-body quantum systems and their stability.</p>
+                </div>
+                <div class="glass-card">
+                    <i data-lucide="brain-circuit" size="32"></i>
+                    <h3>Neural Topologies</h3>
+                    <p>Mapping the architectural constraints of artificial neural networks to biological synaptic structures.</p>
+                </div>
+                <div class="glass-card">
+                    <i data-lucide="microscope" size="32"></i>
+                    <h3>Material Synthesis</h3>
+                    <p>Developing computational models to predict the electronic properties of 2D van der Waals heterostructures.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2 class="section-title">Selected Projects & Publications</h2>
+            <div class="pub-grid">
+                <div class="pub-card">
+                    <div class="pub-image" style="background-image: url('https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=800')"></div>
+                    <div class="pub-tag">Physical Review Letters • 2025</div>
+                    <h3>Topological Insulators in Neural Architectures</h3>
+                    <p>A comparative study on energy efficiency in data processing across physical and digital mediums.</p>
+                </div>
+                <div class="pub-card">
+                    <div class="pub-image" style="background-image: url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800')"></div>
+                    <div class="pub-tag">Nature Communications • 2024</div>
+                    <h3>Quantum Machine Learning Fallacies</h3>
+                    <p>Addressing the scaling limitations of noisy intermediate-scale quantum (NISQ) devices.</p>
+                </div>
+                <div class="pub-card">
+                    <div class="pub-image" style="background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800')"></div>
+                    <div class="pub-tag">Journal of AI Research • 2023</div>
+                    <h3>Ethics of Automated Peer Review</h3>
+                    <p>Analyzing the risk of homogeneity in scientific literature due to LLM-assisted evaluation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div style="font-weight: 600; font-size: 1.1rem;">PhD in Applied Physics</div>
+                    <div style="color: var(--primary-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">California Institute of Technology | 2017 – 2021</div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Thesis: Topological Invariants in Synthetic Quantum Matter. Supervised by Prof. John Preskill.</p>
+                </div>
+                <div class="timeline-item">
+                    <div style="font-weight: 600; font-size: 1.1rem;">M.Sc. in Mathematics</div>
+                    <div style="color: var(--primary-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">University of Tokyo | 2015 – 2017</div>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Focus on Differential Geometry and Manifold Learning.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <div class="nav">
-        <a href="#about">About</a>
-        <a href="#education">Education</a>
-        <a href="#research">Research</a>
-        <a href="#contact">Contact</a>
-    </div>
+    <footer id="contact">
+        <div class="container">
+            <h2 style="margin-bottom: 2rem;">Let's Connect</h2>
+            <div class="social-links">
+                <a href="#"><i data-lucide="twitter"></i></a>
+                <a href="#"><i data-lucide="linkedin"></i></a>
+                <a href="#"><i data-lucide="github"></i></a>
+                <a href="#"><i data-lucide="mail"></i></a>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">&copy; 2026 Dr. Avery Scholar. Built for academic excellence.</p>
+        </div>
+    </footer>
 
-    <div id="about" class="section">
-        <h2>About Me</h2>
-        <p>Briefly describe who you are. For example: "I am a graduating senior at [University Name] with a passion for [Field]. I am currently seeking PhD opportunities in Europe and Asia focusing on [Specific Topic]."</p>
-        <a href="your-cv-link.pdf" class="btn">Download My CV (PDF)</a>
-    </div>
-
-    <div id="education" class="section">
-        <h2>Education</h2>
-        <ul>
-            <li><strong>M.Sc. in Computer Science</strong>, University of X (2023 - 2025)</li>
-            <li><strong>B.Sc. in Engineering</strong>, College of Y (2019 - 2023)</li>
-        </ul>
-    </div>
-
-    <div id="research" class="section">
-        <h2>Selected Research</h2>
-        <p><strong>Thesis Title:</strong> "An Analysis of X and Y in the context of Z"</p>
-        <p>Description of your work and findings. Mention any tools you used (e.g., Python, MATLAB).</p>
-    </div>
-
-    <div id="contact" class="section">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
-        <p>LinkedIn: <a href="#">linkedin.com/in/yourprofile</a></p>
-    </div>
-
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
