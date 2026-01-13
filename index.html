@@ -258,6 +258,34 @@
             section { padding: 3rem 0; }
         }
     </style>
+    <script>
+// Disable the right-click context menu
+document.addEventListener('contextmenu', function (event) {
+    event.preventDefault();
+    return false;
+});
+
+// Disable Inspect Element (F12, Ctrl+Shift+I) and View Source (Ctrl+U) shortcuts
+document.addEventListener('keydown', function (event) {
+    if (
+        event.key === 'F12' |
+
+| 
+        (event.ctrlKey && event.shiftKey && (event.key === 'I' |
+
+| event.key === 'i' |
+| event.key === 'C' |
+| event.key === 'c')) |
+| 
+        (event.ctrlKey && (event.key === 'U' |
+
+| event.key === 'u'))
+    ) {
+        event.preventDefault();
+        return false;
+    }
+});
+</script>
 </head>
 <body>
 
